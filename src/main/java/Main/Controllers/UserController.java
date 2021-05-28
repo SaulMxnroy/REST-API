@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,8 +36,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping(path = "/{id}")
-	public User getUserById(@PathVariable("id") Integer id) {
+	@GetMapping(path = "/user/{id}")
+	public Optional<User> getUserById(@PathVariable("id") Integer id) {
 	 return userService.getUserById(id);
 	}
 	
@@ -48,13 +49,12 @@ public class UserController {
 	}
 	
 	@PostMapping(path = "user/add")
-
     public User addUser(@RequestBody User user ){
 		return userService.addUser(user);
     }
 
-	@PutMapping(path = "user/{id}")
-	public User updateUser(@RequestBody User user, @PathVariable Integer id) {
+	@PutMapping(path = "/user/{id}")
+	public User updateUser(@RequestBody User user, @PathVariable("id") Integer id) {
 			user.setIdUser(id);
 			return userService.updateUser(user);
 	}
